@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SiteMercado.Teste.Application.DTOs.Notificacao;
 using SiteMercado.Teste.Application.DTOs.Produto;
 using SiteMercado.Teste.Application.Interfaces;
 using SiteMercado.Teste.Application.Mappings;
@@ -32,21 +33,21 @@ namespace SiteMercado.Teste.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] ProdutoRequest request)
+        public ActionResult<NotificacaoResponse> Post([FromBody] ProdutoRequest request)
         {
             _service.CreateProduto(request.ToProduto());
             return Notify("Produto cadastrado com sucesso", false);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(Guid id, [FromBody] ProdutoRequest request)
+        public ActionResult<NotificacaoResponse> Put(Guid id, [FromBody] ProdutoRequest request)
         {
             _service.UpdateProduto(request.ToProduto(id));
             return Notify("Produto atualizado com sucesso", false);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public ActionResult<NotificacaoResponse> Delete(Guid id)
         {
             _service.DeleteProduto(id);
             return Notify("Produto removido com sucesso", false);
