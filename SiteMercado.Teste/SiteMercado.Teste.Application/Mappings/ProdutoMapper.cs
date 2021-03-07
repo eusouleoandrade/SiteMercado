@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SiteMercado.Teste.Application.DTOs.Produto;
 using SiteMercado.Teste.Domain.Entities;
+using System;
 
 namespace SiteMercado.Teste.Application.Mappings
 {
@@ -16,6 +17,11 @@ namespace SiteMercado.Teste.Application.Mappings
         {
             IMapper mapper = ProdutoToProdutoRequestConfig().CreateMapper();
             return mapper.Map<Produto>(request);
+        }
+
+        public static Produto ToProduto(this ProdutoRequest request, Guid id)
+        {
+            return new Produto(id, request.Nome, request.Valor, request.Imagem);
         }
 
         #region Configs

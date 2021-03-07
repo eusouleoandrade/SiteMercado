@@ -14,9 +14,18 @@ namespace SiteMercado.Teste.Domain.Entities
 
         public int Imagem { get; private set; }
 
+        public Produto(string nome, decimal valor, int imagem) : this(Guid.NewGuid(), nome, valor, imagem)
+        {
+        }
+
         public Produto(Guid id, string nome, decimal valor, int imagem)
         {
-            Id = id == null ? Guid.NewGuid() : id;
+            Nome = nome;
+            Valor = valor;
+            Imagem = imagem;
+            Id = id;
+
+            Validate();
         }
 
         public void Validate()

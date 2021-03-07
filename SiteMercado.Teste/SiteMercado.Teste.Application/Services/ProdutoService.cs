@@ -3,15 +3,14 @@ using SiteMercado.Teste.Application.Interfaces;
 using SiteMercado.Teste.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SiteMercado.Teste.Application.Services
 {
     public class ProdutoService : IProdutoService
     {
-        private readonly IProdutoRepositoryAsync _repository;
+        private readonly IProdutoRepository _repository;
 
-        public ProdutoService(IProdutoRepositoryAsync repository)
+        public ProdutoService(IProdutoRepository repository)
         {
             _repository = repository;
         }
@@ -19,56 +18,56 @@ namespace SiteMercado.Teste.Application.Services
         public void CreateProduto(Produto entity)
         {
             CheckIsNull(entity);
-            entity.Validate();
             CheckContainsByNome(entity);
-            _repository.AddAsync(entity);
+            _repository.Add(entity);
         }
 
-        public void DeleteProduto(Produto entity)
-        {
-            CheckIsNull(entity);
-            CheckNotContains(entity);
-            _repository.DeleteAsync(entity);
-        }
-
-        public Task<IReadOnlyList<Produto>> GetAllProdutos()
-        {
-            return _repository.GetAllAsync();
-        }
-
-        public Task<Produto> GetProdutoById(Guid id)
+        public void DeleteProduto(Guid id)
         {
             CheckIdIsValid(id);
-            var entity = _repository.GetByIdAsync(id);
-            CheckIsNull(entity.Result);
-            return entity;
+            var entity = GetProdutoById(id);
+            CheckIsNull(entity);
+            _repository.Delete(entity);
+        }
+
+        public IReadOnlyList<Produto> GetAllProdutos()
+        {
+            return _repository.GetAll();
+        }
+
+        public Produto GetProdutoById(Guid id)
+        {
+            CheckIdIsValid(id);
+            return _repository.GetById(id);
         }
 
         public void UpdateProduto(Produto entity)
         {
             CheckIsNull(entity);
-            entity.Validate();
+            CheckNotContainsById(entity.Id);
             CheckContainsByNome(entity);
-            _repository.UpdateAsync(entity);
+            _repository.Update(entity);
         }
 
         private void CheckIsNull(Produto entity)
         {
             if (entity is null)
-                throw new ServiceException($"{nameof(Produto)} é requerido");
+                throw new ServiceException($"{nameof(Produto)} inválido");
         }
 
         private void CheckContainsByNome(Produto entity)
         {
-            var entityByNome = _repository.GetProdutoByNome(entity.Nome).Result;
+            var entityByNome = _repository.GetByNome(entity.Nome);
 
             if (!(entityByNome is null) && entity.Id != entityByNome.Id)
                 throw new ServiceException($"{nameof(Produto)} já cadastrado");
         }
 
-        private void CheckNotContains(Produto entity)
+        private void CheckNotContainsById(Guid id)
         {
-            if (_repository.GetByIdAsync(entity.Id) is null)
+            var entityById = _repository.GetById(id);
+
+            if (entityById is null)
                 throw new ServiceException($"{nameof(Produto)} não cadastrado");
         }
 

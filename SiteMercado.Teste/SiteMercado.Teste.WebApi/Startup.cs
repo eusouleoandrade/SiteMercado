@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using SiteMercado.Teste.Application;
 using SiteMercado.Teste.Infra.Persistence;
 using SiteMercado.Teste.WebApi.Extensions;
@@ -26,13 +26,9 @@ namespace SiteMercado.Teste.WebApi
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
+            app.UseProblemDetailsExtension(loggerFactory, env);
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();

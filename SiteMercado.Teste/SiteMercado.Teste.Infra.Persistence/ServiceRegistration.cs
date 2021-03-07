@@ -16,8 +16,8 @@ namespace SiteMercado.Teste.Infra.Persistence
                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             #region Repositories
-            services.AddScoped(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
-            services.AddScoped<IProdutoRepositoryAsync, ProdutoRepositoryAsync>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
             #endregion
         }
     }

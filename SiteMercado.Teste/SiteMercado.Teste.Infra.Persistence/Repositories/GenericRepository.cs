@@ -4,22 +4,22 @@ using SiteMercado.Teste.Application.Interfaces;
 using SiteMercado.Teste.Infra.Persistence.Contexts;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace SiteMercado.Teste.Infra.Persistence.Repositories
 {
-    public class GenericRepositoryAsync<T> : BaseRepositoryAsync, IGenericRepositoryAsync<T> where T : class
+    public class GenericRepository<T> : BaseRepository, IGenericRepository<T> where T : class
     {
-        public GenericRepositoryAsync(ApplicationDbContext dbContext) : base(dbContext)
+        public GenericRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
 
-        public virtual async Task<T> AddAsync(T entity)
+        public virtual T Add(T entity)
         {
             try
             {
-                await _dbContext.Set<T>().AddAsync(entity);
-                await _dbContext.SaveChangesAsync();
+                _dbContext.Set<T>().Add(entity);
+                _dbContext.SaveChanges();
                 return entity;
             }
             catch (Exception ex)
@@ -28,12 +28,12 @@ namespace SiteMercado.Teste.Infra.Persistence.Repositories
             }
         }
 
-        public virtual async Task DeleteAsync(T entity)
+        public virtual void Delete(T entity)
         {
             try
             {
                 _dbContext.Set<T>().Remove(entity);
-                await _dbContext.SaveChangesAsync();
+                _dbContext.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -41,13 +41,11 @@ namespace SiteMercado.Teste.Infra.Persistence.Repositories
             }
         }
 
-        public virtual async Task<IReadOnlyList<T>> GetAllAsync()
+        public virtual IReadOnlyList<T> GetAll()
         {
             try
             {
-                return await _dbContext
-                 .Set<T>()
-                 .ToListAsync();
+                return _dbContext.Set<T>().ToList();
             }
             catch (Exception ex)
             {
@@ -55,11 +53,11 @@ namespace SiteMercado.Teste.Infra.Persistence.Repositories
             }
         }
 
-        public virtual async Task<T> GetByIdAsync(Guid id)
+        public virtual T GetById(Guid id)
         {
             try
             {
-                return await _dbContext.Set<T>().FindAsync(id);
+                return _dbContext.Set<T>().Find(id);
             }
             catch (Exception ex)
             {
@@ -67,17 +65,25 @@ namespace SiteMercado.Teste.Infra.Persistence.Repositories
             }
         }
 
-        public virtual async Task UpdateAsync(T entity)
+        public virtual void Update(T entity)
         {
             try
             {
                 _dbContext.Entry(entity).State = EntityState.Modified;
-                await _dbContext.SaveChangesAsync();
+                _dbContext.SaveChanges();
             }
             catch (Exception ex)
             {
                 throw new RepositoryException(ex);
             }
+        }
+
+        protected void DetachLocal(Func<T, bool> predicate)
+        {
+            var local = _dbContext.Set<T>().Local.Where(predicate).FirstOrDefault();
+
+            if (!(local is null))
+                _dbContext.Entry(local).State = EntityState.Detached;
         }
     }
 }
