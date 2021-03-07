@@ -13,6 +13,12 @@ namespace SiteMercado.Teste.Application.Mappings
             return mapper.Map<ProdutoResponse>(entity);
         }
 
+        public static ProdutoViewModel ToProdutoViewModel(this ProdutoResponse response)
+        {
+            IMapper mapper = ProdutoResponseToProdutoViewModelConfig().CreateMapper();
+            return mapper.Map<ProdutoViewModel>(response);
+        }
+
         public static Produto ToProduto(this ProdutoRequest request)
         {
             IMapper mapper = ProdutoToProdutoRequestConfig().CreateMapper();
@@ -40,6 +46,15 @@ namespace SiteMercado.Teste.Application.Mappings
             {
                 m.CreateMap<Produto, ProdutoRequest>();
                 m.CreateMap<ProdutoRequest, Produto>();
+            });
+        }
+
+        private static MapperConfiguration ProdutoResponseToProdutoViewModelConfig()
+        {
+            return new MapperConfiguration(m =>
+            {
+                m.CreateMap<ProdutoResponse, ProdutoViewModel>();
+                m.CreateMap<ProdutoViewModel, ProdutoResponse>();
             });
         }
         #endregion
