@@ -17,7 +17,7 @@ namespace SiteMercado.Teste.WebApp.Controllers
 
         public ProdutosController(IHttpClientFactory clientFactory)
         {
-            _client = clientFactory.CreateClient("ApiComissaoClient");
+            _client = clientFactory.CreateClient("ApiProdutosClient");
         }
 
         [HttpGet]
