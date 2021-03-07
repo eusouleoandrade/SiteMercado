@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMercado.Teste.Infra.Per
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMercado.Teste.WebApi", "SiteMercado.Teste.WebApi\SiteMercado.Teste.WebApi.csproj", "{7D086555-0B92-4EDC-98DD-596E5417645A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{0457DBEF-9DD0-43F2-94DF-6D092FD46E82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMercado.Teste.UnityTest", "SiteMercado.Teste.UnityTest\SiteMercado.Teste.UnityTest.csproj", "{12E844C3-44D7-46CA-BD2C-8AD9A6BB90BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{7D086555-0B92-4EDC-98DD-596E5417645A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D086555-0B92-4EDC-98DD-596E5417645A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D086555-0B92-4EDC-98DD-596E5417645A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12E844C3-44D7-46CA-BD2C-8AD9A6BB90BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12E844C3-44D7-46CA-BD2C-8AD9A6BB90BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12E844C3-44D7-46CA-BD2C-8AD9A6BB90BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12E844C3-44D7-46CA-BD2C-8AD9A6BB90BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +61,8 @@ Global
 		{F9CC493E-911D-46C8-B0C1-40B41951F7E1} = {0917A227-8FCA-44EC-B17B-0436EFCFE1D1}
 		{D1B565E0-9CDA-4CF7-B6A3-5791ECA121B7} = {13496BF6-B1C5-4F56-B02F-516D44D58AE1}
 		{7D086555-0B92-4EDC-98DD-596E5417645A} = {5214468A-D381-4C30-A989-A51AF006DFD1}
+		{0457DBEF-9DD0-43F2-94DF-6D092FD46E82} = {480E36A1-6100-40D9-94C1-FBCDC47DACFC}
+		{12E844C3-44D7-46CA-BD2C-8AD9A6BB90BB} = {0457DBEF-9DD0-43F2-94DF-6D092FD46E82}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8B23AD73-BCA5-4A1E-A1DF-D9B332547798}

@@ -1,8 +1,9 @@
 ﻿using SiteMercado.Teste.Infra.Persistence.Contexts;
+using System;
 
 namespace SiteMercado.Teste.Infra.Persistence.Repositories
 {
-    public abstract class BaseRepository
+    public abstract class BaseRepository : IDisposable
     {
         protected readonly ApplicationDbContext _dbContext;
 
