@@ -1,0 +1,27 @@
+﻿@model SiteMercado.Teste.Application.DTOs.Error.ErrorViewModel
+@{
+    ViewData["Title"] = "404";
+}
+
+<div class="middle-box text-center animated fadeInDown">
+    <h1>@ViewData["Title"]</h1>
+    <h3 class="font-bold">Ops! Página não encontrada.</h3>
+
+    <div class="error-desc">
+        <p>
+            Desculpe, mas a página que você está procurando não foi encontrada.
+        </p>
+        <p>
+            <strong>
+                @Model.OriginalUrl
+            </strong>
+        </p>
+        <p>Você pode voltar para a página principal: <br /><a href="@Url.Action("Index", "Home")" class="btn btn-primary m-t">Home</a></p>
+        @if (Model.ShowRequestId)
+        {
+            <p>
+                <strong>Request ID:</strong> <code>@Model.RequestId</code>
+            </p>
+        }
+    </div>
+</div>

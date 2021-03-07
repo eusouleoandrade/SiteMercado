@@ -38,9 +38,6 @@ namespace SiteMercado.Teste.Domain.Entities
             if (Valor == Decimal.Zero)
                 exceptions.Add($"{nameof(Valor)} é requerido");
 
-            if (Imagem == Decimal.Zero)
-                exceptions.Add($"{nameof(Imagem)} é requerida");
-
             if (exceptions.Any())
                 throw new DomainException(exceptions);
         }

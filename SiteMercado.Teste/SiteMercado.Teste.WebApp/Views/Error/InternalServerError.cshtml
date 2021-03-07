@@ -1,0 +1,20 @@
+﻿@model SiteMercado.Teste.Application.DTOs.Error.ErrorViewModel
+@{
+    ViewData["Title"] = "500";
+}
+
+<div class="middle-box text-center animated fadeInDown">
+    <h1>@ViewData["Title"]</h1>
+    <h3 class="font-bold">Ops! Tivemos um erro interno.</h3>
+
+    <div class="error-desc">
+        <p>O servidor encontrou algo inesperado que não permitiu a conclusão da solicitação. <strong>Nós pedimos desculpas.</strong></p>
+        <p>Você pode voltar para a página principal: <br /><a href="@Url.Action("Index", "Home")" class="btn btn-primary m-t">Home</a></p>
+        @if (Model.ShowRequestId)
+        {
+            <p>
+                <strong>Request ID:</strong> <code>@Model.RequestId</code>
+            </p>
+        }
+    </div>
+</div>

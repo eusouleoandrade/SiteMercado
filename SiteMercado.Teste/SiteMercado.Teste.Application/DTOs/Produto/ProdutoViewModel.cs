@@ -14,7 +14,7 @@ namespace SiteMercado.Teste.Application.DTOs.Produto
 
         [DisplayName("Valor R$")]
         [Required(ErrorMessage = "Valor é requerido")]
-        public decimal Valor { get; set; }
+        public decimal? Valor { get; set; }
 
         public int Imagem { get; set; }
     }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SiteMercado.Teste.Application.DTOs.Produto;
 using SiteMercado.Teste.Application.Mappings;
@@ -67,7 +66,7 @@ namespace SiteMercado.Teste.WebApp.Controllers
             if (ModelState.IsValid)
             {
                 var contentCreate = new StringContent(JsonConvert.SerializeObject(viewModel), Encoding.UTF8, "application/json");
-                HttpResponseMessage httpResponse =  _client.PostAsync("produtos", contentCreate).Result;
+                HttpResponseMessage httpResponse = _client.PostAsync("produtos", contentCreate).Result;
                 var response = JsonConvert.DeserializeAnonymousType(httpResponse.Content.ReadAsStringAsync().Result, new { Title = "" });
 
                 if (httpResponse.IsSuccessStatusCode)
@@ -76,7 +75,7 @@ namespace SiteMercado.Teste.WebApp.Controllers
                     return RedirectToAction(nameof(Index));
                 }
                 else
-                     Notify(response.Title, true);
+                    Notify(response.Title, true);
             }
 
             return View(viewModel);
@@ -145,7 +144,7 @@ namespace SiteMercado.Teste.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(ProdutoViewModel viewModel)
         {
-            HttpResponseMessage httpResponse = _client.DeleteAsync($"tipoexame/{viewModel.Id}").Result;
+            HttpResponseMessage httpResponse = _client.DeleteAsync($"produtos/{viewModel.Id}").Result;
             var response = JsonConvert.DeserializeAnonymousType(httpResponse.Content.ReadAsStringAsync().Result, new { Title = "" });
 
             if (httpResponse.IsSuccessStatusCode)

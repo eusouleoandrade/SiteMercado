@@ -1,0 +1,33 @@
+﻿<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header \">
+                <div class="dropdown profile-element">
+                    <a class="dropdown-toggle" href="@Url.Action("Index", "Home", new { area = "" })">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">SiteMercado</strong>
+                            </span>
+                            <span class="text-muted text-xs block"><small>ASP.NET CORE</small></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="logo-element">
+                    CF+
+                </div>
+            </li>
+            <li class="@Html.IsSelected(controller: "Home")">
+                <a href="@Url.Action("Index", "Home",  new { area = "" })"><i class="fa fa-home"></i> <span class="nav-label">Home</span> </a>
+            </li>   
+            <li class="@Html.IsSelected(controller: "Produtos")">
+                <a href="@Url.Action("Index", "Produtos",  new { area = "" })"><i class="fa fa-ticket"></i> <span class="nav-label">Produtos</span> </a>
+            </li>
+            <li>
+                <a href="https://github.com/eusouleoandrade/SiteMercado" target="_blank"><i class="fa fa-github"></i> <span class="nav-label">GitHub</span></a>
+            </li>
+            <li>
+                <a href="http://consultafacil-api.azurewebsites.net/index.html" target="_blank"><i class="fa fa-code"></i> <span class="nav-label">Web Api</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
