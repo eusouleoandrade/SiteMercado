@@ -18,7 +18,7 @@ namespace SiteMercado.Teste.WebApi.Extensions
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SiteMercado - API de Produtos");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SiteMercado - API de Teste");
                 c.RoutePrefix = string.Empty;
             });
         }

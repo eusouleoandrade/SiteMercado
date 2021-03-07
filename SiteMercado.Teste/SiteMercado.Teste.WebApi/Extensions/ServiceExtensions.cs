@@ -13,7 +13,7 @@ namespace SiteMercado.Teste.WebApi.Extensions
                 {
                     Title = "SiteMercado",
                     Version = "v1",
-                    Description = "API de Produtos"
+                    Description = "API de Teste"
                 });
             });
         }
