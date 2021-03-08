@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SiteMercado.Teste.Application\SiteMercado.Teste.Application.csproj" />
+    <ProjectReference Include="..\SiteMercado.Teste.Domain\SiteMercado.Teste.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
