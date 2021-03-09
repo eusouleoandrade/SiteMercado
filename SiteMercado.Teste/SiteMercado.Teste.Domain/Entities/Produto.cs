@@ -12,13 +12,22 @@ namespace SiteMercado.Teste.Domain.Entities
 
         public decimal Valor { get; private set; }
 
-        public int Imagem { get; private set; }
+        public string Imagem { get; private set; }
 
-        public Produto(string nome, decimal valor, int imagem) : this(Guid.NewGuid(), nome, valor, imagem)
+        public Produto(string nome, decimal valor) : this(Guid.NewGuid(), nome, valor, String.Empty)
         {
         }
 
-        public Produto(Guid id, string nome, decimal valor, int imagem)
+        public Produto(Guid id, string nome, decimal valor) : this(id, nome, valor, String.Empty)
+        {
+        }
+
+        public Produto(string nome, decimal valor, string imagem)
+            : this(Guid.NewGuid(), nome, valor, imagem)
+        {
+        }
+
+        public Produto(Guid id, string nome, decimal valor, string imagem)
         {
             Nome = nome;
             Valor = valor;

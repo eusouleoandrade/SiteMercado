@@ -14,7 +14,7 @@ namespace SiteMercado.Teste.Infra.Persistence.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Nome = table.Column<string>(nullable: true),
                     Valor = table.Column<decimal>(nullable: false),
-                    Imagem = table.Column<int>(nullable: false)
+                    Imagem = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -16,4 +16,8 @@
     <ProjectReference Include="..\SiteMercado.Teste.Application\SiteMercado.Teste.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
 </Project>

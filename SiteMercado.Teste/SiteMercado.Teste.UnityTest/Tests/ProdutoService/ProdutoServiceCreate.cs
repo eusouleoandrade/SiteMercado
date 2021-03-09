@@ -10,7 +10,7 @@ namespace SiteMercado.Teste.UnityTest.Tests
         public void CheckCreate()
         {
             // Arranje
-            Produto newProduto = new Produto("ProdutoX", 15.60M, 1);
+            Produto newProduto = new Produto("ProdutoX", 15.60M);
 
             // Act
             _produtoService.CreateProduto(newProduto);
@@ -26,7 +26,7 @@ namespace SiteMercado.Teste.UnityTest.Tests
         public void CheckCreateWithExceptionReturn()
         {
             // Arranje
-            Produto newProduto = new Produto("ProdutoA", 15.60M, 1);
+            Produto newProduto = new Produto("ProdutoA", 15.60M);
 
             // Act
             void act() => _produtoService.CreateProduto(newProduto);

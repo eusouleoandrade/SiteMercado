@@ -25,8 +25,8 @@ namespace SiteMercado.Teste.Infra.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Imagem")
-                        .HasColumnType("int");
+                    b.Property<string>("Imagem")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");

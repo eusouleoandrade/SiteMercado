@@ -15,6 +15,6 @@ namespace SiteMercado.Teste.Application.DTOs.Produto
         public decimal Valor { get; set; }
 
         [JsonPropertyName("imagem")]
-        public int Imagem { get; set; }
+        public string Imagem { get; set; }
     }
 }

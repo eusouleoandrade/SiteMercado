@@ -24,5 +24,21 @@
                 <span asp-validation-for="Valor" class="text-danger"></span>
             </div>
         </div>
+        <div class="form-group">
+            <label asp-for="Imagem" class="control-label col-md-1"></label>
+            <div class="col-md-11">
+                <div class="input-group m-b">
+                    <span class="input-group-addon"><i class="fa fa-file-picture-o"></i></span>
+                    <input asp-for="File" type="file" class="form-control custom-file-input" placeholder="Imagem" />
+                </div>
+                @if (Model?.ImagemExistente != null)
+                {
+                    <div id="img-produto">
+                        <img src="~/uploads/@Model.ImagemExistente" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
+                    </div>
+                }
+                <span asp-validation-for="File" class="text-danger"></span>
+            </div>
+        </div>
     </div>
 </div>

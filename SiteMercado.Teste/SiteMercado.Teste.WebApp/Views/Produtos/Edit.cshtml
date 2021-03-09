@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<form asp-action="Edit">
+<form asp-action="Edit" enctype="multipart/form-data">
     <div class="wrapper wrapper-content animated fadeInDown">
         <div class="panel panel-primary">
             @Html.HiddenFor(m => m.Id)
@@ -32,6 +32,7 @@
             <div class="panel-footer panel-info">
                 <div class="row">
                     <div class="col-md-offset-1 col-md-11">
+                        @Html.HiddenFor(model => model.ImagemExistente)
                         <a asp-action="Index" class="btn btn-white">Voltar para lista</a>
                         <button type="submit" class="ladda-button btn btn-primary" data-style="zoom-in">Salvar</button>
                     </div>
@@ -40,3 +41,11 @@
         </div>
     </div>
 </form>
+
+@section ScriptPage {
+    <script type="text/javascript">
+        $("input[type=file]").change(function () {
+            document.getElementById('img-produto').innerHTML = "";
+        })
+    </script>
+}

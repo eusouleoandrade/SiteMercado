@@ -16,9 +16,9 @@ namespace SiteMercado.Teste.UnityTest.Mocks
         {
             return new List<Produto>
             {
-                new Produto("ProdutoA", 20.50M, 0),
-                new Produto("ProdutoB", 134.50M, 0),
-                new Produto("ProdutoC", 100M, 0)
+                new Produto("ProdutoA", 20.50M),
+                new Produto("ProdutoB", 134.50M),
+                new Produto("ProdutoC", 100M)
             };
         }
     }

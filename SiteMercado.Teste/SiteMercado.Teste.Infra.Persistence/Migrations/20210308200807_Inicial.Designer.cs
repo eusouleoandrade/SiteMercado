@@ -10,7 +10,7 @@ using SiteMercado.Teste.Infra.Persistence.Contexts;
 namespace SiteMercado.Teste.Infra.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210307011939_Inicial")]
+    [Migration("20210308200807_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,8 @@ namespace SiteMercado.Teste.Infra.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Imagem")
-                        .HasColumnType("int");
+                    b.Property<string>("Imagem")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");

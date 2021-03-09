@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SiteMercado.Teste.Application.DTOs.Produto;
 using SiteMercado.Teste.Application.Mappings;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -13,10 +15,12 @@ namespace SiteMercado.Teste.WebApp.Controllers
     public class ProdutosController : BaseController
     {
         private readonly HttpClient _client;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProdutosController(IHttpClientFactory clientFactory)
+        public ProdutosController(IHttpClientFactory clientFactory, IWebHostEnvironment hostEnvironment)
         {
             _client = clientFactory.CreateClient("ApiProdutosClient");
+            _webHostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -49,8 +53,10 @@ namespace SiteMercado.Teste.WebApp.Controllers
             }
 
             var produtoResponse = JsonConvert.DeserializeObject<ProdutoResponse>(httpResponse.Content.ReadAsStringAsync().Result);
+            var viewModel = produtoResponse.ToProdutoViewModel();
+            viewModel.ImagemExistente = viewModel.Imagem;
 
-            return View(produtoResponse.ToProdutoViewModel());
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -65,6 +71,7 @@ namespace SiteMercado.Teste.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                viewModel.Imagem = ProcessUploadedFile(viewModel);
                 var contentCreate = new StringContent(JsonConvert.SerializeObject(viewModel), Encoding.UTF8, "application/json");
                 HttpResponseMessage httpResponse = _client.PostAsync("produtos", contentCreate).Result;
                 var response = JsonConvert.DeserializeAnonymousType(httpResponse.Content.ReadAsStringAsync().Result, new { Title = "" });
@@ -89,6 +96,7 @@ namespace SiteMercado.Teste.WebApp.Controllers
             if (httpResponse.IsSuccessStatusCode)
             {
                 var viewModel = JsonConvert.DeserializeObject<ProdutoViewModel>(httpResponse.Content.ReadAsStringAsync().Result);
+                viewModel.ImagemExistente = viewModel.Imagem;
                 return View(viewModel);
             }
             else
@@ -106,6 +114,22 @@ namespace SiteMercado.Teste.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (viewModel.File != null)
+                {
+                    if (viewModel.ImagemExistente != null)
+                    {
+                        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", viewModel.ImagemExistente);
+                        System.IO.File.Delete(filePath);
+                    }
+
+                    viewModel.Imagem = ProcessUploadedFile(viewModel);
+                }
+                else
+                {
+                    if (viewModel.ImagemExistente != null)
+                        viewModel.Imagem = viewModel.ImagemExistente;
+                }
+
                 var contentEdit = new StringContent(JsonConvert.SerializeObject(viewModel), Encoding.UTF8, "application/json");
                 HttpResponseMessage httpResponse = _client.PutAsync($"produtos/{viewModel.Id}", contentEdit).Result;
                 var response = JsonConvert.DeserializeAnonymousType(httpResponse.Content.ReadAsStringAsync().Result, new { Title = "" });
@@ -129,6 +153,7 @@ namespace SiteMercado.Teste.WebApp.Controllers
             if (httpResponse.IsSuccessStatusCode)
             {
                 var viewModel = JsonConvert.DeserializeObject<ProdutoViewModel>(httpResponse.Content.ReadAsStringAsync().Result);
+                viewModel.ImagemExistente = viewModel.Imagem;
                 return View(viewModel);
             }
             else
@@ -149,6 +174,13 @@ namespace SiteMercado.Teste.WebApp.Controllers
 
             if (httpResponse.IsSuccessStatusCode)
             {
+                if (viewModel.Imagem != null)
+                {
+                    var CurrentImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", viewModel.Imagem);
+                    if (System.IO.File.Exists(CurrentImage))
+                        System.IO.File.Delete(CurrentImage);
+                }
+
                 Notify(response.Title, false);
                 return RedirectToAction(nameof(Index));
             }
@@ -156,6 +188,22 @@ namespace SiteMercado.Teste.WebApp.Controllers
                 Notify(response.Title, true);
 
             return View();
+        }
+
+        private string ProcessUploadedFile(ProdutoViewModel viewModel)
+        {
+            string uniqueFileName = null;
+
+            if (viewModel.File != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + viewModel.File.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using var fileStream = new FileStream(filePath, FileMode.Create);
+                viewModel.File.CopyTo(fileStream);
+            }
+
+            return uniqueFileName;
         }
 
         protected override void Dispose(bool disposing)

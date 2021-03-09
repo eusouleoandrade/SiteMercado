@@ -21,4 +21,8 @@
     <ProjectReference Include="..\SiteMercado.Teste.Domain\SiteMercado.Teste.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
