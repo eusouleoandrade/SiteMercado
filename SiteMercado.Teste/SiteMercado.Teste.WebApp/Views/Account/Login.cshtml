@@ -1,0 +1,59 @@
+﻿@model SiteMercado.Teste.Application.DTOs.Login.LoginUserViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BackOffice | Login</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/fonts/font-awesome/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="~/css/animate.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/style-custom.css" />
+</head>
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen">
+        <div>
+            <div class="animated fadeInLeft">
+                <h1 class="logo-name">
+                    SM
+                </h1>
+            </div>
+            <h3 class="animated fadeInDown">SiteMercado</h3>
+            <p class="animated fadeInDown">
+                Faça login para acessar o serviço.
+            </p>
+            <form class="m-t animated fadeInDown" role="form" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="Email" class="form-control" placeholder="E-mail" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Password" class="form-control" placeholder="Senha" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="RememberMe">
+                            <input asp-for="RememberMe" />
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+            </form>
+            <p class="m-t animated fadeInDown"> <small><strong>Copyright</strong> SiteMercado &copy; @DateTime.Now.Year</small> </p>
+        </div>
+    </div>
+</body>
+</html>
+<script src="~/js/plugins/pace/pace.min.js"></script>

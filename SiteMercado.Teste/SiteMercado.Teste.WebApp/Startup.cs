@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SiteMercado.Teste.Infra.Security;
 using SiteMercado.Teste.WebApp.Extensions;
 
 namespace SiteMercado.Teste.WebApp
@@ -18,8 +21,15 @@ namespace SiteMercado.Teste.WebApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSecurityInfrastructure(Configuration);
             services.AddHttpClientProdutoApi(Configuration);
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                       .RequireAuthenticatedUser()
+                       .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -29,6 +39,7 @@ namespace SiteMercado.Teste.WebApp
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

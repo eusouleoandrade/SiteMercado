@@ -1,8 +1,23 @@
-﻿<div class="row border-bottom">
-    <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<div class="row border-bottom">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
         </div>
-        <partial name="_LoginPartial" />
+        <ul class="nav navbar-top-links navbar-right">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li>
+                    <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">Olá, @User.Identity.Name</span>
+                </li>
+                <li>
+                    <a href="javascript:{}" onclick="document.getElementById('logoutForm').submit();"><i class="fa fa-sign-out"></i> Sair</a>
+                </li>
+            }
+        </ul>
     </nav>
 </div>
+<form method="post" id="logoutForm" asp-controller="account" asp-action="logout">
+</form>
